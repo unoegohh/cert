@@ -15,9 +15,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/1', (req, res)=>{
-  console.log('123')
+app.get('/gov', (req, res)=>{
   res.sendFile(path.join(__dirname, '/public/DCC Checker.html'));
+});
+app.get('/app', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/MUSSAIBEKOV_DOSE.html'));
 });
 app.use('/users', usersRouter);
 
