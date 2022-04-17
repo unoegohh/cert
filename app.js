@@ -21,6 +21,13 @@ app.get('/gov', (req, res)=>{
 app.get('/app', (req, res)=>{
   res.sendFile(path.join(__dirname, '/public/MUSSAIBEKOV_DOSE.html'));
 });
+
+app.get('/a-gov', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/Aiman/2022-01-02.html'));
+});
+app.get('/a-mar', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/Aiman/2022-02-03.html'));
+});
 app.use('/users', usersRouter);
 
 const PORT = process.env.PORT || 5000;
