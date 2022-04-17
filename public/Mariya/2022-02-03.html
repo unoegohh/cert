@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://app.digitalcovidcertchecker.gov.ie/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>DCC Checker</title>
+    <link rel="icon" type="image/png" href="https://app.digitalcovidcertchecker.gov.ie/ADR/CK/Web/img/favicon.png?v=1.0.1">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/93836ff4df.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+    <link rel="stylesheet" href="/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet">
+
+    <script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer=""></script>
+    <script src="/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous" defer=""></script>
+    <script src="/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" defer=""></script>
+    <script src="/jsQR.min.js" defer=""></script>
+    <script src="/rules.js" defer=""></script>
+    <!--    <script src="/custom.js" defer=""></script>-->
+    <script>
+      var webvaltoken = "[QVAL:201371399242888843491007]eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoIjoidmFsaWRhdGVxci5nb3YuaWUiLCJvIjoxMDA0MDAwMjc0LCJleHAiOjE2NTA4NDkzMDAsImp0aSI6IjIwMTM3MTM5OTI0Mjg4ODg0MzQ5MTAwNyJ9.HWFCXi8VSjhHZ7Z3KCjzjNYP5Ai3IdjmrzbPiijaQYg";
+    </script>
+</head>
+<body>
+<div class="h-100 reboot-jumbotron">
+    <nav class="navbar navbar-default reboot-navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="https://app.digitalcovidcertchecker.gov.ie/" class="navbar-brand">
+                    <img src="/Image_Logo.png" alt="Project logo">
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="mt-1 text-center">
+        <button id="button-reset" class="btn btn-link border border-white"><h1 class="text-center">Digital Covid Cert Checker</h1></button>
+        <br>
+        <div class="d-flex justify-content-center mt-3 hide-on-result" style="display: none !important">
+            <div id="canvas-overlay" class="p-5 bg-white" hidden="">
+                <img src="/qr_code.png" alt="" width="152" height="152">
+            </div>
+            <canvas id="canvas" class="qr-canvas" height="480" width="640"></canvas>
+            <div id="vid-overlay-in" style="width: 320px; height: 320px; top: 249px;">
+                <div id="vid-overlay-line" style="top: 159px;"></div>
+            </div>
+        </div>
+        <div class="d-inline-block mt-1 hide-on-result" style="display: none !important">
+            <div id="loading-message" class="text-white" hidden="">
+                Loading camera...
+            </div>
+        </div>
+        <div id="result-success" class="d-inline-block mt-4" style="">
+            <div class="mb-4">
+                <div id="green-tick-icon" class="fa-stack fa-3x custom-icon">
+                    <i class="fa fa-circle fa-stack-2x text-white"></i>
+                    <i class="fa fa-check-circle fa-stack-2x fa-inverse" style="color: #00b894;"></i>
+                </div>
+                <div id="clock-icon" class="fa-stack fa-3x custom-icon" hidden="">
+                    <i class="fa fa-circle fa-stack-2x text-white"></i>
+                    <i class="fa fa-clock fa-stack-2x fa-inverse" style="color: #00b894;"></i>
+                </div>
+                <div id="times-icon" class="fa-stack fa-3x custom-icon" hidden="">
+                    <i class="fa fa-circle fa-stack-2x text-white"></i>
+                    <i class="fa fa-times-circle fa-stack-2x fa-inverse" style="color: #da4453;"></i>
+                </div>
+                <h2 id="result-success-valid-text" class="mt-3 text-white">VALID</h2>
+                <div id="result-success-invalid-text" hidden="">
+                    <h2 class="mt-3 text-white">INVALID</h2>
+                    <p class="mt-3 text-white">Invalid for domestic use in Ireland. However, this cert is valid for EU travel.</p>
+                </div>
+            </div>
+            <table class="table table-sm text-dark text-left m-0">
+                <tbody id="result-success-table" style="white-space: pre-wrap; background-color: #eeeeee"><tr><td>Name</td><td>Rabiankova Maryia</td></tr><tr><td>Cert Type</td><td>Vaccination - DE</td></tr><tr><td>Vaccination Date</td><td>2022-02-03</td></tr></tbody>
+            </table>
+        </div>
+        <div id="result-fail" class="d-inline-block mt-4 text-white" style="display: none !important">
+            <div class="mb-4">
+                <div class="fa-stack fa-3x custom-icon">
+                    <i class="fa fa-circle fa-stack-2x text-white"></i>
+                    <i class="fa fa-times-circle fa-stack-2x fa-inverse" style="color: #da4453;"></i>
+                </div>
+                <h2 class="mt-3 text-white">INVALID</h2>
+            </div>
+            <div class="border border-white p-4">
+                <b>
+                    <span id="result-fail-title">Sorry this certificate cannot be validated</span>
+                </b>
+                <div id="result-fail-msg" class="preline">
+                    Error: Technical details
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="d-inline-block mt-1 pt-2 pl-2 pr-2 pb-0 w-full">
+            <!--          <button id="scan-qr-code" class="btn btn-warning custom-btn">Scan QR code</button>-->
+            <!--          <div id="scan-qr-code-desc" class="text-white mt-2">Click "Scan QR Code" to verify an EU Digital COVID Certificate</div>-->
+            <div id="scan-qr-code-info" class="text-white mt-2">
+                <!--            <div class="d-inline-block border border-white px-4">-->
+                <!--              <i class="fa fa-info-circle fa-lg mt-4"></i>-->
+                <!--              <div class="mt-2 mb-4">-->
+                <!--                We use the camera on your device to read the QR code.-->
+                <!--              </div>-->
+                <!--            </div>-->
+                <div class="d-inline-block border border-white px-4">
+                    <i class="fa fa-info-circle fa-lg mt-4"></i>
+                    <div class="mt-2 mb-4">
+                        We do not store or retain personal data when a certificate is verified.
+                    </div>
+                </div>
+            </div>
+            <b>
+                <p class="text-white mt-2">For more information visit <a href="https://www.gov.ie/dccchecker">www.gov.ie/dccchecker</a></p>
+            </b>
+        </div>
+    </div>
+</div>
+
+
+</body></html>

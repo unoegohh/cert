@@ -28,6 +28,12 @@ app.get('/a-gov', (req, res)=>{
 app.get('/a-mar', (req, res)=>{
   res.sendFile(path.join(__dirname, '/public/Aiman/2022-02-03.html'));
 });
+app.get('/m-gov', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/Mariya/2022-01-02.html'));
+});
+app.get('/m-mar', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/Mariya/2022-02-03.html'));
+});
 app.use('/users', usersRouter);
 
 const PORT = process.env.PORT || 5000;
