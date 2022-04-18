@@ -34,6 +34,12 @@ app.get('/m-gov', (req, res)=>{
 app.get('/m-mar', (req, res)=>{
   res.sendFile(path.join(__dirname, '/public/Mariya/2022-02-03.html'));
 });
+app.get('/s-gov', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/Serdi/2022-01-02.html'));
+});
+app.get('/s-mar', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/public/Serdi/2022-02-03.html'));
+});
 app.use('/users', usersRouter);
 
 const PORT = process.env.PORT || 5000;
