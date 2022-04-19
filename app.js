@@ -60,7 +60,7 @@ app.get('/:link', async (req, res)=>{
   if(!cert){
     res.status(500).send('Not found!');
   }
-  const name = cert.lastName + ' ' + cert.firstNamelastName;
+  const name = cert.lastName + ' ' + cert.firstName;
   const date = _.find(cert.certs, {link});
   res.render(__dirname + "/public/template.html", {name:name, date: date.date});
 });
