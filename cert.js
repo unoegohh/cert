@@ -18,6 +18,9 @@ const CertSchema = new Schema(
             type: String,
             required: true
           },
+          salt: {
+            type: String
+          },
           link: {
             type: String,
             required: true

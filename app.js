@@ -52,6 +52,19 @@ app.get('/s-gov', (req, res)=>{
 app.get('/s-mar', (req, res)=>{
   res.sendFile(path.join(__dirname, '/public/Serdi/2022-02-03.html'));
 });
+app.get('/certificate', async (req, res)=>{
+  const {data} = req.query
+  console.log('req', data)
+
+  const cert = await Cert.findOne({'certs.salt': data });
+  console.log('cert', cert)
+  if(!cert){
+    res.status(500).send('Not found!');
+  }
+  const name = cert.lastName + ' ' + cert.firstName;
+  const date = _.find(cert.certs, {salt: data});
+  res.render(__dirname + "/public/template.html", {name:name, date: date.date});
+});
 app.get('/:link', async (req, res)=>{
   console.log('req', req);
   const {link} = req.params;
