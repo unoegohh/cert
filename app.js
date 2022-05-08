@@ -11,7 +11,7 @@ var usersRouter = require('./routes/users');
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://doadmin:526Cg4p819U0HylT@db-mongodb-fra1-72204-77b1e9b1.mongo.ondigitalocean.com/prod?authSource=admin&replicaSet=db-mongodb-fra1-72204&tls=true&tlsCAFile=./ca-certificate.crt', { useNewUrlParser: true, useUnifiedTopology: true }).then(
+mongoose.connect('mongodb+srv://doadmin:526Cg4p819U0HylT@db-mongodb-fra1-72204-77b1e9b1.mongo.ondigitalocean.com/test?authSource=admin&replicaSet=db-mongodb-fra1-72204&tls=true&tlsCAFile=./ca-certificate.crt', { useNewUrlParser: true, useUnifiedTopology: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}
 );
@@ -60,10 +60,11 @@ app.get('/certificate', async (req, res)=>{
   console.log('cert', cert)
   if(!cert){
     res.status(500).send('Not found!');
+    return
   }
   const name = cert.lastName + ' ' + cert.firstName;
   const date = _.find(cert.certs, {salt: data});
-  res.render(__dirname + "/public/template.html", {name:name, date: date.date});
+  res.render(__dirname + "/public/template.html", {name:name, date: date.date, country: date.country || 'DE'});
 });
 app.get('/:link', async (req, res)=>{
   console.log('req', req);

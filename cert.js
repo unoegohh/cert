@@ -14,6 +14,9 @@ const CertSchema = new Schema(
     certs: {
       type: [
         {
+          country: {
+            type: String,
+          },
           date: {
             type: String,
             required: true
