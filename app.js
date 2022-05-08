@@ -60,7 +60,7 @@ app.get('/certificate', async (req, res)=>{
   console.log('cert', cert)
   if(!cert){
     res.status(500).send('Not found!');
-    return
+    return;
   }
   const name = cert.lastName + ' ' + cert.firstName;
   const date = _.find(cert.certs, {salt: data});
